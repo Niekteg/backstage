@@ -35,7 +35,7 @@ describe('SearchBar', () => {
     types: ['*'],
   };
 
-  const name = 'Search term';
+  const name = 'Search';
   const term = 'term';
 
   const query = jest.fn().mockResolvedValue({});
@@ -102,7 +102,7 @@ describe('SearchBar', () => {
       expect(screen.getByRole('textbox', { name })).toHaveValue(term);
     });
 
-    userEvent.click(screen.getByRole('button', { name: 'Clear term' }));
+    userEvent.click(screen.getByRole('button', { name: 'Clear' }));
 
     await waitFor(() => {
       expect(screen.getByRole('textbox', { name })).toHaveValue('');
