@@ -41,7 +41,7 @@ export const SearchBarBase = ({
 }: PresenterProps) => {
   const endAdornment = (
     <InputAdornment position="end">
-      <IconButton aria-label="Clear term" onClick={onClear}>
+      <IconButton aria-label="Clear" onClick={onClear}>
         <ClearButton />
       </IconButton>
     </InputAdornment>
@@ -60,10 +60,10 @@ export const SearchBarBase = ({
       placeholder={placeholder ?? 'Search in Backstage'}
       value={value}
       onChange={onChange}
-      inputProps={{ 'aria-label': 'Search term' }}
+      inputProps={{ 'aria-label': 'Search' }}
       startAdornment={
         <InputAdornment position="start">
-          <IconButton aria-label="Query term" disabled>
+          <IconButton aria-label="Query" disabled>
             <SearchIcon />
           </IconButton>
         </InputAdornment>
