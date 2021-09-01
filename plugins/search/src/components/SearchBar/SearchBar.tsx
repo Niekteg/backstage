@@ -73,8 +73,8 @@ export const SearchBarBase = ({
           </IconButton>
         </InputAdornment>
       }
-      {...(className ? { className } : {})}
-      {...(onSubmit ? { onKeyDown } : {})}
+      {...(className ?? { className })}
+      {...(onSubmit ?? { onKeyDown })}
     />
   );
 };
