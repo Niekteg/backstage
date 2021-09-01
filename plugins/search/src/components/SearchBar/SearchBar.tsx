@@ -25,8 +25,8 @@ import { useSearch } from '../SearchContext';
 type PresenterProps = {
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  handleClear?: () => void;
-  onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
+  onClear?: () => void;
+  onSubmit?: () => void;
   className?: string;
   placeholder?: string;
 };
@@ -34,18 +34,24 @@ type PresenterProps = {
 export const SearchBarPresenter = ({
   value,
   onChange,
-  onKeyDown,
-  handleClear,
+  onSubmit,
+  onClear,
   className,
   placeholder,
 }: PresenterProps) => {
   const endAdornment = (
     <InputAdornment position="end">
-      <IconButton aria-label="Clear term" onClick={handleClear}>
+      <IconButton aria-label="Clear term" onClick={onClear}>
         <ClearButton />
       </IconButton>
     </InputAdornment>
   );
+
+  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (onSubmit && e.key === 'Enter') {
+      onSubmit();
+    }
+  };
 
   return (
     <InputBase
@@ -62,9 +68,9 @@ export const SearchBarPresenter = ({
           </IconButton>
         </InputAdornment>
       }
-      {...(handleClear ? { endAdornment } : {})}
+      {...(onClear ? { endAdornment } : {})}
       {...(className ? { className } : {})}
-      {...(onKeyDown ? { onKeyDown } : {})}
+      {...(onSubmit ? { onKeyDown } : {})}
     />
   );
 };
@@ -95,7 +101,7 @@ export const SearchBar = ({ className, debounceTime = 0 }: Props) => {
       className={className}
       value={value}
       onChange={handleQuery}
-      handleClear={handleClear}
+      onClear={handleClear}
     />
   );
 };

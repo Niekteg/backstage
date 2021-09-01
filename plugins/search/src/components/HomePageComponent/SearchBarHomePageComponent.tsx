@@ -37,10 +37,8 @@ export const SearchBarHomePageComponent = ({ placeholder }: Props) => {
   const handleSearch = useNavigateToQuery();
   const classes = useStyles();
 
-  const handleSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleSearch(query);
-    }
+  const handleSubmit = () => {
+    handleSearch(query);
   };
 
   const handleChange = React.useCallback(
@@ -56,9 +54,9 @@ export const SearchBarHomePageComponent = ({ placeholder }: Props) => {
 
   return (
     <SearchBarPresenter
-      onKeyDown={handleSubmit}
+      onSubmit={handleSubmit}
       onChange={handleChange}
-      handleClear={handleClear}
+      onClear={handleClear}
       value={query}
       className={classes.searchBar}
       placeholder={placeholder}
