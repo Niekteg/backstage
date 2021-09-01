@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React, { ChangeEvent, useEffect, KeyboardEvent, useState } from 'react';
+import React, { useEffect, KeyboardEvent, useState } from 'react';
 import { useDebounce } from 'react-use';
 import { InputBase, InputAdornment, IconButton } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
@@ -24,7 +24,7 @@ import { useSearch } from '../SearchContext';
 
 type PresenterProps = {
   value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (value: string) => void;
   onClear?: () => void;
   onSubmit?: () => void;
   className?: string;
@@ -35,23 +35,21 @@ export const SearchBarBase = ({
   value,
   onChange,
   onSubmit,
-  onClear,
   className,
   placeholder,
 }: PresenterProps) => {
-  const endAdornment = (
-    <InputAdornment position="end">
-      <IconButton aria-label="Clear" onClick={onClear}>
-        <ClearButton />
-      </IconButton>
-    </InputAdornment>
+  const onKeyDown = React.useCallback(
+    (e: KeyboardEvent<HTMLInputElement>) => {
+      if (onSubmit && e.key === 'Enter') {
+        onSubmit();
+      }
+    },
+    [onSubmit],
   );
 
-  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (onSubmit && e.key === 'Enter') {
-      onSubmit();
-    }
-  };
+  const handleClear = React.useCallback(() => {
+    onChange('');
+  }, [onChange]);
 
   return (
     <InputBase
@@ -59,7 +57,7 @@ export const SearchBarBase = ({
       fullWidth
       placeholder={placeholder ?? 'Search in Backstage'}
       value={value}
-      onChange={onChange}
+      onChange={e => onChange(e.target.value)}
       inputProps={{ 'aria-label': 'Search' }}
       startAdornment={
         <InputAdornment position="start">
@@ -68,7 +66,13 @@ export const SearchBarBase = ({
           </IconButton>
         </InputAdornment>
       }
-      {...(onClear ? { endAdornment } : {})}
+      endAdornment={
+        <InputAdornment position="end">
+          <IconButton aria-label="Clear" onClick={handleClear}>
+            <ClearButton />
+          </IconButton>
+        </InputAdornment>
+      }
       {...(className ? { className } : {})}
       {...(onSubmit ? { onKeyDown } : {})}
     />
@@ -90,8 +94,8 @@ export const SearchBar = ({ className, debounceTime = 0 }: Props) => {
 
   useDebounce(() => setTerm(value), debounceTime, [value]);
 
-  const handleQuery = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+  const handleQuery = (newValue: string) => {
+    setValue(newValue);
   };
 
   const handleClear = () => setValue('');

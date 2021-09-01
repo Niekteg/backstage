@@ -42,21 +42,16 @@ export const SearchBarHomePageComponent = ({ placeholder }: Props) => {
   };
 
   const handleChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setQuery(e.target.value);
+    value => {
+      setQuery(value);
     },
     [setQuery],
   );
-
-  const handleClear = React.useCallback(() => {
-    setQuery('');
-  }, [setQuery]);
 
   return (
     <SearchBarBase
       onSubmit={handleSubmit}
       onChange={handleChange}
-      onClear={handleClear}
       value={query}
       className={classes.searchBar}
       placeholder={placeholder}
