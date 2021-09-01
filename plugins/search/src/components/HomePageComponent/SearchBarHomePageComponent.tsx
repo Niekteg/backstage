@@ -43,13 +43,16 @@ export const SearchBarHomePageComponent = ({ placeholder }: Props) => {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-  };
+  const handleChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setQuery(e.target.value);
+    },
+    [setQuery],
+  );
 
-  const handleClear = () => {
+  const handleClear = React.useCallback(() => {
     setQuery('');
-  };
+  }, [setQuery]);
 
   return (
     <SearchBarPresenter
