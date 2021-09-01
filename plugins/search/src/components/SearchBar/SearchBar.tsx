@@ -31,7 +31,7 @@ type PresenterProps = {
   placeholder?: string;
 };
 
-export const SearchBarPresenter = ({
+export const SearchBarBase = ({
   value,
   onChange,
   onSubmit,
@@ -97,7 +97,7 @@ export const SearchBar = ({ className, debounceTime = 0 }: Props) => {
   const handleClear = () => setValue('');
 
   return (
-    <SearchBarPresenter
+    <SearchBarBase
       className={className}
       value={value}
       onChange={handleQuery}

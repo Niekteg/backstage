@@ -17,7 +17,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { SearchBarPresenter } from '../SearchBar';
+import { SearchBarBase } from '../SearchBar';
 import { useNavigateToQuery } from '../util';
 
 const useStyles = makeStyles({
@@ -53,7 +53,7 @@ export const SearchBarHomePageComponent = ({ placeholder }: Props) => {
   }, [setQuery]);
 
   return (
-    <SearchBarPresenter
+    <SearchBarBase
       onSubmit={handleSubmit}
       onChange={handleChange}
       onClear={handleClear}

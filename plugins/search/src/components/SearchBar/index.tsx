@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export { SearchBar, SearchBarPresenter } from './SearchBar';
+export { SearchBar, SearchBarBase } from './SearchBar';
