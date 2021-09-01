@@ -32,7 +32,7 @@ type Props = {
   placeholder?: string;
 };
 
-export const SearchBarHomePageComponent = ({ placeholder }: Props) => {
+export const HomePageSearchBar = ({ placeholder }: Props) => {
   const [query, setQuery] = React.useState('');
   const handleSearch = useNavigateToQuery();
   const classes = useStyles();

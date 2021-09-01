@@ -23,7 +23,7 @@ export {
   SearchBarNext,
   SearchResult,
   DefaultResultListItem,
-  SearchBarHomePageComponent,
+  HomePageSearchBar,
 } from './plugin';
 export {
   Filters,

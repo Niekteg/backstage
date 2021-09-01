@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export { SearchBarHomePageComponent } from './SearchBarHomePageComponent';
+export { HomePageSearchBar } from './HomePageSearchBar';
