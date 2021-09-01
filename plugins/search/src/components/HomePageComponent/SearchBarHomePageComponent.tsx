@@ -38,7 +38,7 @@ export const SearchBarHomePageComponent = ({ placeholder }: Props) => {
   const classes = useStyles();
 
   const handleSubmit = () => {
-    handleSearch(query);
+    handleSearch({ query });
   };
 
   const handleChange = React.useCallback(

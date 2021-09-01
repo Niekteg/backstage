@@ -24,7 +24,7 @@ export const useNavigateToQuery = () => {
   const searchRoute = useRouteRef(rootRouteRef);
   const navigate = useNavigate();
   return useCallback(
-    (query: string): void => {
+    ({ query }: { query: string }): void => {
       const queryString = qs.stringify({ query }, { addQueryPrefix: true });
 
       navigate(`${searchRoute()}${queryString}`);
