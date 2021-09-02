@@ -15,6 +15,7 @@
  */
 
 import React, { useEffect, KeyboardEvent, useState } from 'react';
+import { configApiRef, useApi } from '@backstage/core-plugin-api';
 import { useDebounce } from 'react-use';
 import { InputBase, InputAdornment, IconButton } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
@@ -36,8 +37,10 @@ export const SearchBarBase = ({
   onChange,
   onSubmit,
   className,
-  placeholder,
+  placeholder: overridePlaceholder,
 }: PresenterProps) => {
+  const configApi = useApi(configApiRef);
+
   const onKeyDown = React.useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
       if (onSubmit && e.key === 'Enter') {
@@ -51,11 +54,14 @@ export const SearchBarBase = ({
     onChange('');
   }, [onChange]);
 
+  const placeholder =
+    overridePlaceholder ?? `Search in ${configApi.getString('app.title')}`;
+
   return (
     <InputBase
       data-testid="search-bar-next"
       fullWidth
-      placeholder={placeholder ?? 'Search in Backstage'}
+      placeholder={placeholder}
       value={value}
       onChange={e => onChange(e.target.value)}
       inputProps={{ 'aria-label': 'Search' }}
